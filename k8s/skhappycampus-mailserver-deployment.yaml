@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: skhappycampus-mailserver-deployment
+  labels:
+    app: skhappycampus-mailserver
+spec:
+  replicas: 1
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      run: skhappycampus-mailserver
+  template:
+    metadata: 
+      labels:
+        run: skhappycampus-mailserver
+    spec:
+      containers:
+      - name: skhappycampus-mailserver
+        image: mgmtsv-registry.cloudzcp.io/skhappycampus/skhappycampus-mailserver:1
+        ports: 
+        - containerPort: 8025
+        - containerPort: 25
+        imagePullPolicy: Always
+        resources:

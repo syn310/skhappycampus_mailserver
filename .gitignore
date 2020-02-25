@@ -1,0 +1,6 @@
+# dependency
+/node_modules
+
+#production
+/dist
+yarn.lock
